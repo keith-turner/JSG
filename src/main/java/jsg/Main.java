@@ -26,6 +26,7 @@ public class Main {
       scanner.close();
     } else {
       System.out.println("Usage : " + Main.class.getName() + " [file]");
+      return;
     }
 
     StringBuilder buf = new StringBuilder();
