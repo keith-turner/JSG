@@ -8,11 +8,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) throws IOException {
 
-    List<String> lines = Files.readAllLines(Paths.get(args[0]));
+    List<String> lines;
+    if(args.length == 1) {
+      lines = Files.readAllLines(Paths.get(args[0]));
+    } else if(args.length == 0) {
+      Scanner scanner = new Scanner(System.in);
+      lines = new ArrayList<>();
+      while(scanner.hasNextLine()) {
+        lines.add(scanner.nextLine());
+      }
+
+      scanner.close();
+    } else {
+      System.out.println("Usage : " + Main.class.getName() + " [file]");
+    }
 
     StringBuilder buf = new StringBuilder();
 
