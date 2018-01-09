@@ -27,6 +27,8 @@ public class Main {
         String header = line;
         buf.setLength(0);
 
+        i++;
+
         for (; i < lines.size(); i++) {
           line = lines.get(i);
           line = line.replaceAll("\\s+$", "");
