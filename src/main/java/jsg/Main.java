@@ -47,6 +47,7 @@ public class Main {
         for (; i < lines.size(); i++) {
           line = lines.get(i);
           line = line.replaceAll("\\s+$", "");
+          line = line.replaceAll("0x[0-9a-f]+", "HEX");
 
           if (line.isEmpty()) {
             break;
