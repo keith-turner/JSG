@@ -1,6 +1,6 @@
 # JSG : Java Stack Trace Grouper
 
-A simple program that groups threads in jstack output with the same stack trace. The following is some example jstack output.
+A simple program that groups jstack threads with the same stack. If you have ever found yourself looking at Java stack traces with many threads having the same stack, then this tool is for you.  The following is some example jstack output.
 
 ```
 "org.eclipse.jdt.internal.ui.text.JavaReconciler" #401 daemon prio=1 os_prio=0 tid=0x00007fc207743800 nid=0x7e58 in Object.wait() [0x00007fc15e6f5000]
