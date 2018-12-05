@@ -1,16 +1,23 @@
 package jsg;
 
 import java.io.IOException;
+import java.lang.Thread.State;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.stream.Stream;
+
+import static java.lang.Thread.State.*;
 
 public class Main {
+
+  private static final String PREFIX = "   java.lang.Thread.State: ";
+
   public static void main(String[] args) throws IOException {
 
     List<String> lines;
@@ -53,7 +60,7 @@ public class Main {
             break;
           }
 
-          buf.append(line + "\n");
+          buf.append(line).append("\n");
         }
 
         String key = buf.toString();
@@ -67,12 +74,19 @@ public class Main {
 
     }
 
-    for (Entry<String, List<String>> entry : uniqueTraces.entrySet()) {
-      for (String header : entry.getValue()) {
-        System.out.println(header);
-      }
+    uniqueTraces.entrySet().stream()
+        .sorted(Map.Entry.comparingByKey(
+            Comparator.comparingInt(Main::toStateIdx).reversed()))
+        .flatMap(e -> Stream.concat(e.getValue().stream(), Stream.of(e.getKey())))
+        .forEach(System.out::println);
+  }
 
-      System.out.println(entry.getKey());
+  private static int toStateIdx(String trace) {
+    for (State state : values()) {
+      if (trace.contains(PREFIX + state)) {
+        return state.ordinal();
+      }
     }
+    return -1;
   }
 }
